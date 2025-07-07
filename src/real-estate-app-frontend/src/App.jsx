@@ -1,42 +1,21 @@
-// import { useState } from 'react';
-// import { real_estate_app_backend } from 'declarations/real-estate-app-backend';
-
-// function App() {
-//   const [greeting, setGreeting] = useState('');
-
-//   function handleSubmit(event) {
-//     event.preventDefault();
-//     const name = event.target.elements.name.value;
-//     real_estate_app_backend.greet(name).then((greeting) => {
-//       setGreeting(greeting);
-//     });
-//     return false;
-//   }
-
-//   return (
-//     <main>
-//       <img src="/logo2.svg" alt="DFINITY logo" />
-//       <br />
-//       <br />
-//       <form action="#" onSubmit={handleSubmit}>
-//         <label htmlFor="name">Enter your name: &nbsp;</label>
-//         <input id="name" alt="Name" type="text" />
-//         <button type="submit">Click Me!</button>
-//       </form>
-//       <section id="greeting">{greeting}</section>
-//     </main>
-//   );
-// }
-
-// export default App;
-
-
-import React from 'react'
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar"
+import PropertyDetails from "./pages/PropertyDetails";
+import Portfolio from "./pages/Portfolio";
 
 const App = () => {
   return (
-    <div className='text-3xl'>App</div>
-  )
-}
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/properties" element={<PropertyDetails />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
