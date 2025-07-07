@@ -14,5 +14,10 @@
   "type": "module",
   "workspaces": [
     "src/real-estate-app-frontend"
-  ]
+  ],
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  }
 }
