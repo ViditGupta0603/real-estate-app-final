@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "real-estate-app-backend": {
+      "candid": "src/real-estate-app-backend/real-estate-app-backend.did",
+      "package": "real-estate-app-backend",
+      "type": "rust"
+    },
+    "real-estate-app-frontend": {
+      "dependencies": [
+        "real-estate-app-backend"
+      ],
+      "source": [
+        "src/real-estate-app-frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "real-estate-app-frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
