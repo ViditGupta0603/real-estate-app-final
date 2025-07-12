@@ -1,3 +1,92 @@
 service : {
-    "greet": (text) -> (text) query;
+  // User Management
+  create_user_profile_wrapper: (text, text) -> (variant { 
+    Ok: record {
+      "principal": principal;
+      name: text;
+      email: text;
+      kyc_status: variant { Pending; Verified; Rejected; Expired };
+      created_at: nat64;
+      total_investments: nat64;
+      investment_limit: nat64;
+      accredited_investor: bool;
+      jurisdiction: text;
+      risk_profile: variant { Conservative; Moderate; Aggressive };
+    }; 
+    Err: text 
+  });
+  
+  get_user_profile_wrapper: (principal) -> (variant { 
+    Ok: record {
+      "principal": principal;
+      name: text;
+      email: text;
+      kyc_status: variant { Pending; Verified; Rejected; Expired };
+      created_at: nat64;
+      total_investments: nat64;
+      investment_limit: nat64;
+      accredited_investor: bool;
+      jurisdiction: text;
+      risk_profile: variant { Conservative; Moderate; Aggressive };
+    }; 
+    Err: text 
+  }) query;
+
+  // Property Management
+  create_property_wrapper: (record {
+    title: text;
+    description: text;
+    location: text;
+    total_value: nat64;
+    total_tokens: nat64;
+    property_type: variant { Residential; Commercial; Industrial; Land; Trophy };
+    images: vec text;
+    documents: vec text;
+    rental_yield: float64;
+    property_highlights: vec text;
+    legal_structure: text;
+  }) -> (variant { Ok: record { id: nat64 }; Err: text });
+  
+  get_all_properties_wrapper: () -> (vec record { id: nat64 }) query;
+  
+  // Investment System
+  invest_in_property_wrapper: (record {
+    property_id: nat64;
+    token_amount: nat64;
+  }) -> (variant { Ok: record { id: nat64 }; Err: text });
+  
+  get_investments_by_user_wrapper: (principal) -> (vec record { id: nat64 }) query;
+  
+  // Marketplace Trading
+  create_token_order_wrapper: (record {
+    property_id: nat64;
+    token_amount: nat64;
+    price_per_token: nat64;
+    order_type: variant { Buy; Sell };
+    expires_in_hours: nat64;
+  }) -> (variant { Ok: record { id: nat64 }; Err: text });
+  
+  execute_order_wrapper: (nat64) -> (variant { Ok: record { id: nat64 }; Err: text });
+  get_active_orders_wrapper: (nat64) -> (vec record { id: nat64 }) query;
+  get_user_orders_wrapper: (principal) -> (vec record { id: nat64 }) query;
+  
+  // Governance System
+  create_proposal_wrapper: (nat64, text, text, variant { PropertyMaintenance; PropertySale; ManagementChange; DividendDistribution; Other }, nat64) -> (variant { Ok: record { id: nat64 }; Err: text });
+  vote_on_proposal_wrapper: (nat64, bool) -> (variant { Ok: null; Err: text });
+  get_property_proposals_wrapper: (nat64) -> (vec record { id: nat64 }) query;
+  
+  // Compliance
+  submit_kyc_documents_wrapper: (vec text) -> (variant { Ok: null; Err: text });
+  
+  // Analytics
+  get_enhanced_platform_stats: () -> (record {
+    total_properties: nat64;
+    total_investments: nat64;
+    total_users: nat64;
+    total_value_locked: nat64;
+    total_trading_volume: nat64;
+    active_orders: nat64;
+    total_dividends_paid: nat64;
+    platform_fee_collected: nat64;
+  }) query;
 }
