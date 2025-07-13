@@ -1,6 +1,31 @@
 "use client";
 import React from "react";
+import { Link } from "react-router-dom";
 import { WavyBackground } from "../components/ui/wavy-background";
+
+// Mock properties array (move to a data file if you like)
+const properties = [
+    {
+        id: "1",
+        title: "Modern Apartment",
+        imageUrl: "https://placehold.co/600x400",
+        description: "A beautiful modern apartment in the city center.",
+        price: "$350,000",
+        location: "Downtown",
+        features: ["2 Bedrooms", "2 Bathrooms", "Balcony", "Gym"],
+        contact: "agent@example.com"
+    },
+    {
+        id: "2",
+        title: "Cozy Suburban House",
+        imageUrl: "https://placehold.co/600x400",
+        description: "Cozy family home in a quiet neighborhood.",
+        price: "$500,000",
+        location: "Suburbs",
+        features: ["4 Bedrooms", "3 Bathrooms", "Garden", "Garage"],
+        contact: "info@homes.com"
+    }
+];
 
 const Home = () => {
     return (
@@ -22,6 +47,32 @@ const Home = () => {
                     </button>
                 </div>
             </WavyBackground>
+
+            {/* Property Listings Section */}
+            <section className="max-w-4xl mx-auto py-12 px-4">
+                <h2 className="text-2xl font-bold mb-6">Available Properties</h2>
+                <div className="grid md:grid-cols-2 gap-8">
+                    {properties.map((property) => (
+                        <div key={property.id} className="bg-gray-900 rounded-xl p-6 shadow-lg flex flex-col">
+                            <img
+                                src={property.imageUrl}
+                                alt={property.title}
+                                className="w-full h-48 object-cover rounded mb-4"
+                            />
+                            <h3 className="text-xl font-semibold mb-2">{property.title}</h3>
+                            <p className="text-gray-300 mb-2">{property.description}</p>
+                            <div className="text-blue-400 font-bold mb-3">{property.price}</div>
+                            <Link
+                                to={`/properties/${property.id}`}
+                                state={{ property }}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-auto text-center"
+                            >
+                                View Details
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            </section>
 
             {/* How it Works Section */}
             <section className="max-w-3xl mx-auto py-12 px-4">
