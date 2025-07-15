@@ -3,7 +3,12 @@
     "real-estate-app-backend": {
       "candid": "src/real-estate-app-backend/real-estate-app-backend.did",
       "package": "real-estate-app-backend",
-      "type": "rust"
+      "type": "rust",
+      "wasm": "target/wasm32-unknown-unknown/release/real_estate_app_backend_opt.wasm",
+      "build": [
+        "cargo build --target wasm32-unknown-unknown --release --package real-estate-app-backend",
+        "candid-extractor target/wasm32-unknown-unknown/release/real_estate_app_backend.wasm > src/real-estate-app-backend/real-estate-app-backend.did"
+      ]
     },
     "real-estate-app-frontend": {
       "dependencies": [
@@ -13,7 +18,7 @@
         "src/real-estate-app-frontend/dist"
       ],
       "type": "assets",
-      "workspace": "real-estate-app-frontend"
+      "main": "src/real-estate-app-frontend/dist/index.html"
     }
   },
   "networks": {
